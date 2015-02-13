@@ -1,5 +1,13 @@
-var gulp = require('gulp'),
+//File: Gulpfile.js
+'use strict';
+
+
+var gulp    = require('gulp'),
     connect = require('gulp-connect'),
+    stylus  = require('gulp-stylus'),
+    nib     = require('nib'),
+    jshint  = require('gulp-jshint'),
+    stylish = require('jshint-stylish'),
     historyApiFallback = require('connect-history-api-fallback');
 
     // Servidor web de desarrollo
@@ -10,13 +18,19 @@ var gulp = require('gulp'),
         port:8080,
         livereload: true,
         middleware: function(connect, opt) {
-          return [ historyApyFallback ];
+          return [ historyApiFallback ];
         }
       });
     });
 
-var stylus = require('gulp-stylus'),
-    nib = require('nib');
+    // Buscar errores en el JS y nos lo muestra por pantalla
+    gulp.task('jshint', function() {
+      return gulp.src('./app/scripts/**/*.js')
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
+    });
+    
 
     // Pre-procesa archivos Stylus a CSS y recarga los cambios
     gulp.task('css', function() {
@@ -32,11 +46,16 @@ var stylus = require('gulp-stylus'),
         .pipe(connect.reload());
     });
 
+
     // Vigila cambios que se produzcan en el código
     // y lanza las tareas relacionadas
     gulp.task('watch', function() {
       gulp.watch(['./app/**/*.html'], ['html']);
       gulp.watch(['./app/stylesheets/**/*.styl'], ['css']);
+      gulp.watch(['./app/scripts/**/*.js', './Gulpfile.js'], ['jshint']);
+
     });
+
+
 
     gulp.task('default', ['server', 'watch']);
