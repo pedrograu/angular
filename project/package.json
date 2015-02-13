@@ -1,0 +1,17 @@
+{
+  "name": "angularapp-gulp-boilerplate",
+  "version": "0.0.1",
+  "description": "Ejemplo de desarrollo de aplicación web con AngularJS",
+  "bugs": {
+    "url": "https://github.com/carlosazaustre/angularapp-gulp-boilerplate/issues",
+    "email": "cazaustre@gmail.com"
+  },
+  "license": "MIT",
+  "author": "Carñps Azaustre <cazaustre@gmail.com - http://carlosazaustre.es",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlosazaustre/angularapp-gulp-boilerplate"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
