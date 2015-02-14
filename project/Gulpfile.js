@@ -1,7 +1,6 @@
 //File: Gulpfile.js
 'use strict';
 
-
 var gulp    = require('gulp'),
     connect = require('gulp-connect'),
     stylus  = require('gulp-stylus'),
