@@ -3,6 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="es-ES">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,13 +12,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <!-- build:css css/syle.min.css -->
   <!-- bower:css -->
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="lib/fontawesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="lib/angular-motion/dist/angular-motion.min.css" />
   <!-- endbower -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/stylesheets/main.css">
   <!-- endinject -->
+  <!-- endbuild -->
 
 
   <link rel="stylesheet" href="stylesheets/main.css">
@@ -48,16 +53,20 @@
     ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
 
+    <!-- build:js js/vendor.min.js -->
     <!-- bower:js -->
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
     <script src="lib/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js js/app.min.js -->
     <!-- inject:js -->
     <script src="/scripts/app.js"></script>
     <script src="/scripts/controllers.js"></script>
     <script src="/scripts/services.js"></script>
     <!-- endinject -->
+    <!-- endbuild -->
 
   </body>
 

@@ -10,7 +10,12 @@ var gulp    = require('gulp'),
     stylish = require('jshint-stylish'),
     historyApiFallback = require('connect-history-api-fallback'),
     inject  = require('gulp-inject'),
-    wiredep = require('wiredep').stream;
+    wiredep = require('wiredep').stream,
+    templateCache = require('gulp-angular-templatecache'),
+    gulpif  = require('gulp-if'),
+    minifyCss = require('gulp-minify-css'),
+    useref  = require('gulp-useref'),
+    uglify  = require('gulp-uglify');
 
     // Servidor web de desarrollo
     gulp.task('server', function() {
@@ -80,6 +85,49 @@ var gulp    = require('gulp'),
       .pipe(gulp.dest('./app'));
     });
 
+    // Cachea la plantilla html como un string
+    gulp.task('templates', function() {
+      gulp.src('./app/views/**/*.tpl.html')
+        .pipe(templateCache({
+          root: 'views/',
+          module: 'blog.templates',
+          standlone: true
+        }))
+        .pipe(gulp.dest('./app/scripts'));
+    });
+
+    // Para compimir y mover a dist
+    gulp.task('compress', function() {
+      gulp.src('./app/index.html')
+      .pipe(useref.assets())
+      .pipe(gulpif('*.js', uglify({mangle: false })))
+      .pipe(gulpif('*.css', minifyCss()))
+      .pipe(gulp.dest('./dist'));
+    });
+
+    //Para copiar
+    gulp.task('copy', function() {
+      gulp.src('./app/index.html')
+        .pipe(useref())
+        .pipe(gulp.dest('./dist'));
+      gulp.src('./app/lib/fontawesome/fonts/**')
+        .pipe(gulp.dest('./dist/fonts'));
+    });
+
+    //Servidor desarrollo
+    gulp.task('server-dist', function() {
+      connect.server({
+        root: './dist',
+        hostname: '0.0.0.0.',
+        port: 8080,
+        livereload :true,
+        middleware: function(connect, opt) {
+          return [ historyApiFallback ];
+        }
+      });
+    });
+
 
 
     gulp.task('default', ['server', 'inject', 'wiredep', 'watch']);
+    gulp.task('build', ['templates', 'compress', 'copy']);
